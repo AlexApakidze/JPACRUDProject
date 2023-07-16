@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+/*body is shown cuz specificity*/
+body{
+	background-color:cadetblue;
+	color:rgb(210, 224, 230);
+}
+
+/*refrenses container tag*/
+.blah{
+	background-color: cyan;
+}
+
+/*refrences id*/
+#frog{
+	background-color: steelblue;
+}
+

@@ -20,6 +20,18 @@ public class OceanLife {
 	@Column( name= "image_url")
 	private String imageUrl;
 	
+	@Column( name= "geographic_location")
+	private String location;
+	
+	@Column( name= "special_abilities")
+	private String specialAbilities;
+	
+	private String size;
+	
+	private String diet;
+	
+	private String varieties;
+	
 	public OceanLife() {
 		
 	}
@@ -48,10 +60,53 @@ public class OceanLife {
 		this.imageUrl = imageUrl;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getSpecialAbilities() {
+		return specialAbilities;
+	}
+
+	public void setSpecialAbilities(String specialAbilities) {
+		this.specialAbilities = specialAbilities;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getDiet() {
+		return diet;
+	}
+
+	public void setDiet(String diet) {
+		this.diet = diet;
+	}
+
+	public String getVarieties() {
+		return varieties;
+	}
+
+	public void setVarieties(String varities) {
+		this.varieties = varities;
+	}
+
 	@Override
 	public String toString() {
-		return "OceanLife [id=" + id + ", name=" + name + "]";
+		return "OceanLife [id=" + id + ", name=" + name + ", imageUrl=" + imageUrl + ", location=" + location
+				+ ", specialAbilities=" + specialAbilities + ", size=" + size + ", diet=" + diet + ", varities="
+				+ varieties + "]";
 	}
+
 	
 	
 }

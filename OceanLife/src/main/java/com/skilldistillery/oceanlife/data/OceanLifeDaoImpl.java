@@ -29,17 +29,46 @@ public class OceanLifeDaoImpl implements OceanLifeDAO {
 	}
 
 	public OceanLife create(OceanLife fish) {
-		return null;
+		em.persist(fish);
+		em.flush();
+		return fish;
 
 	}
 
 	public OceanLife update(int fishId, OceanLife fish) {
+		System.out.println("\n\nOceanLifeDao Update method: "+fish);
+		OceanLife managed = em.find(OceanLife.class, fishId);
+		managed.setName(fish.getName());
+		managed.setImageUrl(fish.getImageUrl());
+		managed.setLocation(fish.getLocation());
+		managed.setSpecialAbilities(fish.getSpecialAbilities());
+		managed.setSize(fish.getSize());
+		managed.setDiet(fish.getDiet());
+		managed.setVarieties(fish.getVarieties());
+		em.merge(managed);
+		em.flush();
 
-		return null;
+		return managed;
 	}
 
 	public boolean deleteById(int fishId) {
 
-		return false;
+		em.getTransaction().begin();
+		boolean success = false;
+		OceanLife oL = em.find(OceanLife.class, fishId);
+
+		if (oL == null) {
+			return false;
+		}
+
+		if (!em.contains(oL)) {
+			success = true;
+		}
+
+		em.remove(oL); // performs the delete on the managed entity
+		em.flush();
+		em.getTransaction().commit();
+
+		return success;
 	}
 }
