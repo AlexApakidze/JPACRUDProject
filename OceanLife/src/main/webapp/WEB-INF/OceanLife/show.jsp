@@ -71,11 +71,11 @@
         <input type="submit" value="Update">
         <br>
         <br>
-           <form action="deleteFish.do" method="POST">
-            <input type="hidden" name="fishId" value="${fish.id}">
-            <button>Delete Fish</button>
-            </form>
         </form> 
+            <form action="deleteFish.do" method="POST">
+            <input type="hidden" name="fishId" value="${fish.id}">
+            <input type="submit" value="delete fish"/>    
+            </form>
 </div>
 	<jsp:include page="../bootstrapFoot.jsp" />
 

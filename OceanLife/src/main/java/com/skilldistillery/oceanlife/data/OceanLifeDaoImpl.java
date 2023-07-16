@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class OceanLifeDaoImpl implements OceanLifeDAO {
 	private EntityManager em;
 
 	@Override
-	public OceanLife findById(int id) {
+	public OceanLife findBy(int id) {
 		
 		return em.find(OceanLife.class, id);
 	}
@@ -28,6 +29,18 @@ public class OceanLifeDaoImpl implements OceanLifeDAO {
 		return em.createQuery(jpql, OceanLife.class).getResultList();
 	}
 
+	public List<OceanLife>searchByKeyword(String searchTerm){
+		
+		String jpql = "SELECT fish FROM OceanLife fish WHERE fish.name "
+				+ "LIKE :searchTerm OR fish.specialAbilities "
+				+ "LIKE :searchTerm OR fish.varieties "
+				+ "LIKE :searchTerm";
+
+		System.out.println("\n\n\nJPQL IN DAO "+jpql);
+		TypedQuery<OceanLife> query = em.createQuery(jpql,OceanLife.class);
+		query.setParameter("searchTerm", "%"+searchTerm+"%");
+		return query.getResultList();
+	}
 	public OceanLife create(OceanLife fish) {
 		em.persist(fish);
 		em.flush();
@@ -53,7 +66,6 @@ public class OceanLifeDaoImpl implements OceanLifeDAO {
 
 	public boolean deleteById(int fishId) {
 
-		em.getTransaction().begin();
 		boolean success = false;
 		OceanLife oL = em.find(OceanLife.class, fishId);
 
@@ -67,7 +79,6 @@ public class OceanLifeDaoImpl implements OceanLifeDAO {
 
 		em.remove(oL); // performs the delete on the managed entity
 		em.flush();
-		em.getTransaction().commit();
 
 		return success;
 	}

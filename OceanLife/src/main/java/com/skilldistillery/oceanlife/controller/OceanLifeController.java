@@ -1,5 +1,7 @@
 package com.skilldistillery.oceanlife.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,31 +23,44 @@ public class OceanLifeController {
 	}
 	@RequestMapping(path = { "getFish.do"})
 	public String displayFish(Model model, Integer fishId) {
-		OceanLife fish= fishDao.findById(fishId);
+		OceanLife fish= fishDao.findBy(fishId);
 		model.addAttribute("fish", fish);
 		return"OceanLife/show";
 	}
 	
 	@RequestMapping(path = {"deleteFish.do"})
 	public String deleteFish(Model model, Integer fishId) {
+		
 		fishDao.deleteById(fishId);
-		return"home";
+		
+		return goHome(model);
 	}
 	
 	@RequestMapping(path = {"editFish.do"})
 	public String updateFish(Model model, OceanLife fish, Integer fishId) {
-		System.out.println("\n\nin controller FISHID "+fishId);
-		System.out.println("\n\nin controller "+fish);
+		System.out.println("in controller FISHID "+fishId);
+		System.out.println("in controller "+fish);
 		fishDao.update(fishId, fish);
 		model.addAttribute("fish", fish);
-		return"OceanLife/show";
+		return goHome(model);
 	}
 	
 	@RequestMapping(path={"addFish.do"})
 	public String addFish(Model model, OceanLife fish) {
 		fishDao.create(fish);
 		model.addAttribute("fish", fish);
-		return "home";
+		return goHome(model);
 	}
-
+	
+	@RequestMapping(path={"goToAddFish.do"})
+	public String redirectToAddFish() {
+		return "addFish";
+	}
+	
+	@RequestMapping(path = { "searchFish.do"})
+	public String searchFish(Model model,String searchTerm) {
+		List<OceanLife> fishList= fishDao.searchByKeyword(searchTerm) ;
+		model.addAttribute("fishList", fishList);
+		return"showSearched";
+}
 }

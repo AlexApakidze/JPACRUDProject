@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<jsp:include page="../bootstrapHead.jsp" />
+<jsp:include page="../WEB-INF/bootstrapHead.jsp" />
 
 </head>
 <body>
 
-	<jsp:include page="../navbar.jsp" />
+	<jsp:include page="../WEB-INF/navbar.jsp" />
 
 
 <div>
@@ -46,13 +46,10 @@
         <input type="submit" value="Add">
         <br>
         <br>
-           <form action="deleteFish.do" method="POST">
-            <input type="hidden" name="fishId" value="${fish.id}">
-            <button>Delete Fish</button>
+        <a href="home.do">Back to Home</a>
             </form>
-        </form> 
 </div>
-	<jsp:include page="../bootstrapFoot.jsp" />
+	<jsp:include page="../WEB-INF/bootstrapFoot.jsp" />
 
 </body>
 </html>
